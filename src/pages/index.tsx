@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { DetailedHTMLProps, FormEvent, useState } from "react";
 import { postRepository } from "../core/postRepository";
 import { PostDto } from "../core/PostDto";
 import { GetServerSideProps } from "next";
@@ -25,18 +25,28 @@ export default function Home(props: HomeProps) {
   const [posts, setPosts] = useState<PostDto[]>(props.posts);
   const createPost = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const { data, error } = await postRepository.createPost({
       title,
       summary,
     });
-
     setErrorMessage(error ? error.message : "");
     if (data) {
       setPosts((prev) => [...prev, ...data]);
     }
     setTitle("");
     setSummary("");
+  };
+
+  const deletePost = async (postId: string) => {
+    const { data, error } = await postRepository.deletePost(postId);
+    setErrorMessage(error ? error.message : "");
+    const responseData = await postRepository.getAllPost();
+    const dataAllPost = responseData.body;
+    if (dataAllPost) {
+      setPosts(dataAllPost);
+    } else {
+      setPosts([]);
+    }
   };
 
   return (
@@ -70,6 +80,9 @@ export default function Home(props: HomeProps) {
           <li key={post.id}>
             <h3>{post.title}</h3>
             <p>{post.summary}</p>
+            <button type="button" onClick={(e) => deletePost(post.id)}>
+              Delete
+            </button>
           </li>
         ))}
       </ul>
