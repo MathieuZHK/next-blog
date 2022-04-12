@@ -68,7 +68,7 @@ export default function Home(props: HomeProps) {
   async function postRequestFABIEN() {
     while (true) {
       fetch(
-        "https://wcejseoasfslqunfxmdr.supabase.co/rest/v1/post?columns=%22title%22%2C%22summary%22",
+        "https://jrbwgmxmyruzbovtjdhl.supabase.co/rest/v1/post?columns=%22title%22%2C%22summary%22",
         {
           method: "POST",
           body: JSON.stringify(dataPGR),
@@ -113,7 +113,7 @@ export default function Home(props: HomeProps) {
         <button type="button" onClick={postRequestPGR}>
           Spam PGR WEBSITE
         </button>
-        <button type="button" onClick={postRequestPGR}>
+        <button type="button" onClick={postRequestFABIEN}>
           Spam FABIEN WEBSITE
         </button>
       </form>
