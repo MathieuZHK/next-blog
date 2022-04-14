@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../../../compoments/nav-bar/NavBar";
 import { Post } from "../../core/entity/Post";
 import { postRepository } from "../../core/service/postService/postRepository";
@@ -32,7 +32,6 @@ export const getServerSideProps: GetServerSideProps<
   const { data, error } = await postRepository.getPostById(
     context.params?.id ?? ""
   );
-
   return {
     props: {
       post: data ? data[0] : undefined,
