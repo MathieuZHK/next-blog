@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { postRepository } from "../core/postRepository";
 import { PostDto } from "../core/PostDto";
 import { GetServerSideProps } from "next";
@@ -40,6 +40,11 @@ export default function Home(props: HomeProps) {
   const deletePost = async (postId: string) => {
     const { data, error } = await postRepository.deletePost(postId);
     setErrorMessage(error ? error.message : "");
+    if (!error) {
+      setPosts((prev) => {
+        return prev.filter((item) => item.id != postId);
+      });
+    }
     const responseData = await postRepository.getAllPost();
     const dataAllPost = responseData.body;
     if (dataAllPost) {
