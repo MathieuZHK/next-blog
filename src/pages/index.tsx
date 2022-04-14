@@ -1,10 +1,12 @@
 import { FormEvent, useState } from "react";
-import { postRepository } from "../core/postRepository";
-import { PostDto } from "../core/PostDto";
+import { postRepository } from "../core/service/postService/postRepository";
+import { Post } from "../core/entity/Post";
 import { GetServerSideProps } from "next";
+import Link from "next/link";
+import NavBar from "../../compoments/nav-bar/NavBar";
 
 interface HomeProps {
-  posts: PostDto[];
+  posts: Post[];
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async (
@@ -22,7 +24,8 @@ export default function Home(props: HomeProps) {
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [posts, setPosts] = useState<PostDto[]>(props.posts);
+  const [posts, setPosts] = useState<Post[]>(props.posts);
+
   const createPost = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { data, error } = await postRepository.createPost({
@@ -56,6 +59,7 @@ export default function Home(props: HomeProps) {
 
   return (
     <div>
+      <NavBar />
       <h1>NEXTJS BLOG</h1>
       {errorMessage && <p>{errorMessage}</p>}
       <form
@@ -85,6 +89,11 @@ export default function Home(props: HomeProps) {
           <li key={post.id}>
             <h3>{post.title}</h3>
             <p>{post.summary}</p>
+            <Link href={`/posts/${post.id}`}>
+              <a>
+                <h3>Detail</h3>
+              </a>
+            </Link>
             <button type="button" onClick={(e) => deletePost(post.id)}>
               Delete
             </button>
