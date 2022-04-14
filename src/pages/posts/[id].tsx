@@ -1,9 +1,11 @@
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import React, { useEffect } from "react";
+import { useRouter } from "next/router";
 import NavBar from "../../../compoments/nav-bar/NavBar";
 import { Post } from "../../core/entity/Post";
 import { postRepository } from "../../core/service/postService/postRepository";
+import { useState } from "react";
+import PostForm from "../../../compoments/post-form/PostForm";
 
 interface PostProps {
   post?: Post;
@@ -14,13 +16,41 @@ interface PostUrlQuery extends ParsedUrlQuery {
 }
 
 export default function PostPage(props: PostProps) {
+  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
+
+  const onPostSubmit = async (title: string, summary: string) => {
+    if (props.post?.id) {
+      const { data, error } = await postRepository.updatePost(props.post?.id, {
+        title,
+        summary,
+      });
+      setErrorMessage(error ? error.message : "");
+      if (!error) {
+        router.replace("/posts");
+      }
+    } else {
+      setErrorMessage("Le post n'existe pas");
+    }
+  };
+
+  const onClickBack = () => {
+    router.replace("/posts");
+  };
+
   return (
     <>
       <NavBar />
-      <div>
-        <h1>{props.post?.title}</h1>
-        <h3>{props.post?.summary}</h3>
-      </div>
+      <h1>Mettre à jour le post</h1>
+      {errorMessage && <p>{errorMessage}</p>}
+      <PostForm
+        onPostSubmit={onPostSubmit}
+        title={props.post?.title}
+        summary={props.post?.summary}
+      />
+      <button type="button" onClick={onClickBack}>
+        Retour aux posts
+      </button>
     </>
   );
 }

@@ -2,12 +2,14 @@ import { FormEvent, useState } from "react";
 import styles from "../post-form/postform.module.css";
 
 interface PostFormProps {
+  title?: string;
+  summary?: string;
   onPostSubmit: (title: string, summary: string) => void;
 }
 
 export default function PostForm(props: PostFormProps) {
-  const [title, setTitle] = useState("");
-  const [summary, setSummary] = useState("");
+  const [title, setTitle] = useState(props.title ? props.title : "");
+  const [summary, setSummary] = useState(props.summary ? props.summary : "");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,7 +39,7 @@ export default function PostForm(props: PostFormProps) {
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
         />
-        <button type="submit">Save</button>
+        <button type="submit">Enregistrer</button>
       </form>
     </>
   );

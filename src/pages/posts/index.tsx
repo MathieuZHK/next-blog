@@ -1,8 +1,8 @@
 import { GetServerSideProps } from "next";
-import React, { useState } from "react";
+import { useState } from "react";
 import NavBar from "../../../compoments/nav-bar/NavBar";
-import PostForm from "../../../compoments/post-form/PostForm";
 import PostList from "../../../compoments/post-list/PostList";
+import { useRouter } from "next/router";
 import { Post } from "../../core/entity/Post";
 import { postRepository } from "../../core/service/postService/postRepository";
 
@@ -22,19 +22,10 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (
 };
 
 export default function Index(props: HomeProps) {
-  const [errorMessage, setErrorMessage] = useState("");
   const [posts, setPosts] = useState<Post[]>(props.posts);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const onPostSubmit = async (title: string, summary: string) => {
-    const { data, error } = await postRepository.createPost({
-      title,
-      summary,
-    });
-    setErrorMessage(error ? error.message : "");
-    if (data) {
-      setPosts((prev) => [...prev, ...data]);
-    }
-  };
+  const router = useRouter();
 
   const deletePost = async (postId: string) => {
     const { data, error } = await postRepository.deletePost(postId);
@@ -53,14 +44,32 @@ export default function Index(props: HomeProps) {
     }
   };
 
+  const clickCreate = () => {
+    router.replace("/posts/create");
+  };
+
+  const clickUpdate = (postId: string) => {
+    router.replace({
+      pathname: "/posts/update",
+      query: { postId: postId },
+    });
+  };
+
   return (
     <>
       <NavBar />
       <h1>NEXTJS BLOG</h1>
-      {errorMessage && <p>{errorMessage}</p>}
-      <PostForm onPostSubmit={onPostSubmit} />
       <hr />
-      <PostList posts={posts} />
+      <button type="button" onClick={clickCreate}>
+        Créer un post
+      </button>
+      <PostList
+        posts={posts}
+        showDelete
+        showUpdate
+        onDelete={deletePost}
+        onUpdate={clickUpdate}
+      />
     </>
   );
 }

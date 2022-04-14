@@ -6,6 +6,11 @@ export default function Login() {
   const onLogin = async (email: string, password: string) => {
     const response = await supabase.auth.signIn({ email, password });
     console.log(response);
+    console.log(
+      new Date(
+        response.session?.expires_at ? response.session?.expires_at * 1000 : ""
+      )
+    );
   };
 
   return (
