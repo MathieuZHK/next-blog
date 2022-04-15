@@ -13,6 +13,10 @@ async function getAllPost() {
   return await supabase.from<Post>("post").select();
 }
 
+async function getPostByUser(userId: string) {
+  return await supabase.from<Post>("post").select().match({ user_id: userId });
+}
+
 async function getPostById(postId: string) {
   return await supabase.from<Post>("post").select().eq("id", postId);
 }
@@ -27,4 +31,5 @@ export const postRepository = {
   updatePost,
   deletePost,
   getPostById,
+  getPostByUser,
 };

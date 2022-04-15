@@ -1,10 +1,10 @@
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useRouter } from "next/router";
-import NavBar from "../../../compoments/nav-bar/NavBar";
-import { Post } from "../../core/entity/Post";
-import { postRepository } from "../../core/service/postService/postRepository";
+import { Post } from "../../../core/entity/Post";
+import { postRepository } from "../../../core/service/postService/postRepository";
 import { useState } from "react";
+import NavBar from "../../../compoments/nav-bar/NavBar";
 import PostForm from "../../../compoments/post-form/PostForm";
 
 interface PostProps {

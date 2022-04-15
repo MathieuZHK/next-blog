@@ -1,5 +1,5 @@
 import React from "react";
-import { Post } from "../../src/core/entity/Post";
+import { Post } from "../../core/entity/Post";
 import PostItem from "../post-item/PostItem";
 import styles from "../post-list/postlist.module.css";
 
@@ -8,11 +8,10 @@ interface PostListProps {
   showDelete?: boolean;
   showUpdate?: boolean;
   onDelete?: (postId: string) => void;
-  onUpdate?: (postId: string) => void;
 }
 
 export default function PostList(props: PostListProps) {
-  const { posts, showDelete, onDelete, showUpdate, onUpdate } = props;
+  const { posts, showDelete, onDelete, showUpdate } = props;
 
   return (
     <ul>
@@ -23,7 +22,6 @@ export default function PostList(props: PostListProps) {
           showDelete={showDelete}
           showUpdate={showUpdate}
           onDelete={onDelete}
-          onUpdate={onUpdate}
         />
       ))}
     </ul>

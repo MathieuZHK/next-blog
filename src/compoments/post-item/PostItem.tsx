@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { Post } from "../../src/core/entity/Post";
+import { Post } from "../../core/entity/Post";
 import styles from "../post-item/postitem.module.css";
 
 interface PostItemProps {
@@ -8,11 +8,10 @@ interface PostItemProps {
   showDelete?: boolean;
   showUpdate?: boolean;
   onDelete?: (postId: string) => void;
-  onUpdate?: (postId: string) => void;
 }
 
 export default function PostItem(props: PostItemProps) {
-  const { post, showDelete, onDelete, showUpdate, onUpdate } = props;
+  const { post, showDelete, onDelete, showUpdate } = props;
 
   return (
     <li key={post.id}>
@@ -24,7 +23,7 @@ export default function PostItem(props: PostItemProps) {
         </button>
       )}
       {showUpdate && (
-        <Link href={`/posts/${post.id}`}>
+        <Link href={`/posts/update/${post.id}`}>
           <a>Modifier</a>
         </Link>
       )}

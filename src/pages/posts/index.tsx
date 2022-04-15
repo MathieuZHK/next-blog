@@ -1,10 +1,11 @@
 import { GetServerSideProps } from "next";
 import { useState } from "react";
-import NavBar from "../../../compoments/nav-bar/NavBar";
-import PostList from "../../../compoments/post-list/PostList";
+
 import { useRouter } from "next/router";
 import { Post } from "../../core/entity/Post";
 import { postRepository } from "../../core/service/postService/postRepository";
+import NavBar from "../../compoments/nav-bar/NavBar";
+import PostList from "../../compoments/post-list/PostList";
 
 interface HomeProps {
   posts: Post[];
@@ -43,16 +44,8 @@ export default function Index(props: HomeProps) {
       setPosts([]);
     }
   };
-
   const clickCreate = () => {
     router.replace("/posts/create");
-  };
-
-  const clickUpdate = (postId: string) => {
-    router.replace({
-      pathname: "/posts/update",
-      query: { postId: postId },
-    });
   };
 
   return (
@@ -63,13 +56,7 @@ export default function Index(props: HomeProps) {
       <button type="button" onClick={clickCreate}>
         Créer un post
       </button>
-      <PostList
-        posts={posts}
-        showDelete
-        showUpdate
-        onDelete={deletePost}
-        onUpdate={clickUpdate}
-      />
+      <PostList posts={posts} showDelete showUpdate onDelete={deletePost} />
     </>
   );
 }

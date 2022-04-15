@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import NavBar from "../../../compoments/nav-bar/NavBar";
-import PostForm from "../../../compoments/post-form/PostForm";
+import NavBar from "../../compoments/nav-bar/NavBar";
+import PostForm from "../../compoments/post-form/PostForm";
+
 import { postRepository } from "../../core/service/postService/postRepository";
 
 export default function Create() {

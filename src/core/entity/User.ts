@@ -1,11 +1,11 @@
-import { GenderEnum } from "../enum/GenderEnum";
 import { RoleEnum } from "../enum/RoleEnum";
 
 export interface User {
   id: string;
-  lastName: string;
-  firstName: string;
-  gender: GenderEnum;
+  nickname: string;
   role: RoleEnum;
+  auth_user_id: string;
   created_at: string;
 }
+export type CreateUserData = Partial<User>;
+export type UpdateUserData = Partial<Omit<User, "id" | "created_at">>;

@@ -1,19 +1,19 @@
 import { FormEvent, useState } from "react";
-import { RegisterDto } from "../../src/core/dto/RegisterDto";
+import { RegisterDto } from "../../core/dto/RegisterDto";
 import styles from "../register-form/registerform.module.css";
 
 interface RegisterFormProps {
-  onRegister: (email: string, password: string) => void;
+  onRegister: (email: string, password: string, nickName: string) => void;
 }
 
 export default function RegisterForm(props: RegisterFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
+  const [nickName, setNickName] = useState("");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.onRegister(email, password);
+    props.onRegister(email, password, nickName);
   };
 
   return (
@@ -26,6 +26,11 @@ export default function RegisterForm(props: RegisterFormProps) {
         maxWidth: "408px",
       }}
     >
+      <input
+        placeholder="nickName"
+        value={nickName}
+        onChange={(e) => setNickName(e.target.value)}
+      />
       <input
         placeholder="email"
         value={email}
