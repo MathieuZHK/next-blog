@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useState } from "react";
-import { User } from "../entity/User";
+import { authenticationRepository } from "../service/authenticationService/authenticationRepository";
+import { User } from "../model/User";
 
 // declare type of data in AuthContext
 interface AuthContextValue {
@@ -37,11 +38,15 @@ export const AuthContextProvider = (props: AuthContextProviderProps) => {
   };
 
   const logout = () => {
+    authenticationRepository.signOut();
+    authenticationRepository.signOutServerSide(token);
+    console.log(token);
     setToken("");
     setCurrentUser(undefined);
 
     // remove the token from local storage
     localStorage.removeItem(TOKEN_KEY);
+    console.log(token);
   };
 
   const authContextValue: AuthContextValue = {

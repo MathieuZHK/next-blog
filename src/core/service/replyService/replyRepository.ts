@@ -1,4 +1,4 @@
-import { CreateReplyData, Reply, UpdateReplyData } from "../../entity/Reply";
+import { CreateReplyData, Reply, UpdateReplyData } from "../../model/Reply";
 import { supabase } from "../supabaseService/supabaseClient";
 
 async function createReply(data: CreateReplyData) {

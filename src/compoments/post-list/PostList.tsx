@@ -1,5 +1,5 @@
 import React from "react";
-import { Post } from "../../core/entity/Post";
+import { Post } from "../../core/model/Post";
 import PostItem from "../post-item/PostItem";
 import styles from "../post-list/postlist.module.css";
 

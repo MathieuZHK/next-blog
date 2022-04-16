@@ -1,4 +1,4 @@
-import { CreatePostData, Post, UpdatePostData } from "../../entity/Post";
+import { CreatePostData, Post, UpdatePostData } from "../../model/Post";
 import { supabase } from "../supabaseService/supabaseClient";
 
 async function createPost(data: CreatePostData) {

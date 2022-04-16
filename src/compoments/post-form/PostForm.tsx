@@ -1,19 +1,23 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
+import { AuthContext } from "../../core/context/AuthContext";
 import styles from "../post-form/postform.module.css";
 
 interface PostFormProps {
   title?: string;
   summary?: string;
-  onPostSubmit: (title: string, summary: string) => void;
+  user_id?: string;
+  onPostSubmit: (title: string, summary: string, user_id: string) => void;
 }
 
 export default function PostForm(props: PostFormProps) {
   const [title, setTitle] = useState(props.title ? props.title : "");
   const [summary, setSummary] = useState(props.summary ? props.summary : "");
+  const authContext = useContext(AuthContext);
+  const userId = authContext.currentUser?.id;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.onPostSubmit(title, summary);
+    props.onPostSubmit(title, summary, userId ? userId : "");
     setTitle("");
     setSummary("");
   };

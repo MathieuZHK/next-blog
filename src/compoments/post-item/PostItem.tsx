@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { Post } from "../../core/entity/Post";
+import { Post } from "../../core/model/Post";
 import styles from "../post-item/postitem.module.css";
 
 interface PostItemProps {

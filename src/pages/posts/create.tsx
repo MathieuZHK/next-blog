@@ -1,18 +1,30 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import NavBar from "../../compoments/nav-bar/NavBar";
 import PostForm from "../../compoments/post-form/PostForm";
+import { AuthContext } from "../../core/context/AuthContext";
 
 import { postRepository } from "../../core/service/postService/postRepository";
 
 export default function Create() {
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  const authContext = useContext(AuthContext);
 
-  const onPostSubmit = async (title: string, summary: string, id?: string) => {
+  useEffect(() => {
+    !authContext.isAuthenticated ? router.replace("/") : "";
+  }, []);
+
+  const onPostSubmit = async (
+    title: string,
+    summary: string,
+    user_id: string,
+    id?: string
+  ) => {
     const { data, error } = await postRepository.createPost({
       title,
       summary,
+      user_id,
     });
     setErrorMessage(error ? error.message : "");
     if (!error) {

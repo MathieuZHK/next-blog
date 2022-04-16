@@ -1,4 +1,4 @@
-import { CreateUserData, User, UpdateUserData } from "../../entity/User";
+import { CreateUserData, User, UpdateUserData } from "../../model/User";
 import { supabase } from "../supabaseService/supabaseClient";
 
 async function createUser(data: CreateUserData) {

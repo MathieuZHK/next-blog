@@ -1,11 +1,12 @@
 import { GetServerSideProps } from "next";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
-import { Post } from "../../core/entity/Post";
+import { Post } from "../../core/model/Post";
 import { postRepository } from "../../core/service/postService/postRepository";
 import NavBar from "../../compoments/nav-bar/NavBar";
 import PostList from "../../compoments/post-list/PostList";
+import { AuthContext } from "../../core/context/AuthContext";
 
 interface HomeProps {
   posts: Post[];
@@ -25,8 +26,12 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (
 export default function Index(props: HomeProps) {
   const [posts, setPosts] = useState<Post[]>(props.posts);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const authContext = useContext(AuthContext);
   const router = useRouter();
+
+  useEffect(() => {
+    authContext.isAuthenticated ? "" : router.replace("/");
+  }, []);
 
   const deletePost = async (postId: string) => {
     const { data, error } = await postRepository.deletePost(postId);

@@ -1,4 +1,4 @@
-import { supabase } from "../core/service/supabaseService/supabaseClient";
+import { authenticationRepository } from "../core/service/authenticationService/authenticationRepository";
 import { userRepository } from "../core/service/userService/userRepository";
 import { RoleEnum } from "../core/enum/RoleEnum";
 import RegisterForm from "../compoments/register-form/RegisterForm";
@@ -10,7 +10,7 @@ export default function Register() {
     password: string,
     nickName: string
   ) => {
-    const respAuthUser = await supabase.auth.signUp({
+    const respAuthUser = await authenticationRepository.signUp({
       email: email,
       password: password,
     });

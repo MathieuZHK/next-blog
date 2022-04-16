@@ -22,7 +22,7 @@ async function createAuthUser(data: RegisterDto) {
   return await supabase.auth.api.createUser(data);
 }
 
-export const postRepository = {
+export const authenticationRepository = {
   signUp,
   signIn,
   signOut,
