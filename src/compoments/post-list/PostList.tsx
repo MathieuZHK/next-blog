@@ -1,10 +1,11 @@
 import React from "react";
+import { PostDto } from "../../core/dto/PostDto";
 import { Post } from "../../core/model/Post";
 import PostItem from "../post-item/PostItem";
 import styles from "../post-list/postlist.module.css";
 
 interface PostListProps {
-  posts: Post[];
+  posts: PostDto[];
   showDelete?: boolean;
   showUpdate?: boolean;
   onDelete?: (postId: string) => void;
