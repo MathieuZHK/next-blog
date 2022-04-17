@@ -6,9 +6,10 @@ import PostList from "../compoments/post-list/PostList";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../core/context/AuthContext";
 import { useRouter } from "next/router";
+import { PostDto } from "../core/dto/PostDto";
 
 interface HomeProps {
-  posts: Post[];
+  posts: PostDto[];
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async (

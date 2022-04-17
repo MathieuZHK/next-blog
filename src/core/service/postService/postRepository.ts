@@ -1,3 +1,4 @@
+import { PostDto } from "../../dto/PostDto";
 import { CreatePostData, Post, UpdatePostData } from "../../model/Post";
 import { supabase } from "../supabaseService/supabaseClient";
 
@@ -10,7 +11,9 @@ async function updatePost(postId: string, data: UpdatePostData) {
 }
 
 async function getAllPost() {
-  return await supabase.from<Post>("post").select();
+  return await supabase
+    .from<PostDto>("post")
+    .select("id, title, summary, user!post_user_id_fkey(nickname), created_at");
 }
 
 async function getPostByUser(userId: string) {
@@ -25,6 +28,13 @@ async function deletePost(postId: string) {
   return await supabase.from<Post>("post").delete().match({ id: postId });
 }
 
+async function getPostByUserWithNickname(userId: string) {
+  return await supabase
+    .from<PostDto>("post")
+    .select("id, title, summary, user!post_user_id_fkey(nickname), created_at")
+    .match({ user_id: userId });
+}
+
 export const postRepository = {
   createPost,
   getAllPost,
@@ -32,4 +42,5 @@ export const postRepository = {
   deletePost,
   getPostById,
   getPostByUser,
+  getPostByUserWithNickname,
 };

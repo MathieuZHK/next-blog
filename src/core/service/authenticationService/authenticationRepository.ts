@@ -22,10 +22,15 @@ async function createAuthUser(data: RegisterDto) {
   return await supabase.auth.api.createUser(data);
 }
 
+async function getJwtTokenFromLocalStorage() {
+  return localStorage.getItem("token");
+}
+
 export const authenticationRepository = {
   signUp,
   signIn,
   signOut,
   signOutServerSide,
   createAuthUser,
+  getJwtTokenFromLocalStorage,
 };

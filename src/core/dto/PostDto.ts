@@ -1,6 +1,9 @@
+import { User } from "../model/User";
+
 export interface PostDto {
+  id: string;
   title: string;
   summary: string;
-  userNickName: string;
   created_at: string;
+  user: User;
 }

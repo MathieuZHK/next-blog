@@ -1,10 +1,11 @@
 import Link from "next/link";
 import React from "react";
+import { PostDto } from "../../core/dto/PostDto";
 import { Post } from "../../core/model/Post";
 import styles from "../post-item/postitem.module.css";
 
 interface PostItemProps {
-  post: Post;
+  post: PostDto;
   showDelete?: boolean;
   showUpdate?: boolean;
   onDelete?: (postId: string) => void;
@@ -16,7 +17,9 @@ export default function PostItem(props: PostItemProps) {
   return (
     <li key={post.id}>
       <h1>{post.title}</h1>
+      <h2>{post.user.nickname}</h2>
       <h3>{post.summary}</h3>
+
       {showDelete && (
         <button type="button" onClick={() => onDelete?.(post.id)}>
           Supprimer

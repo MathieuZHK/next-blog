@@ -7,32 +7,29 @@ import { postRepository } from "../../core/service/postService/postRepository";
 import NavBar from "../../compoments/nav-bar/NavBar";
 import PostList from "../../compoments/post-list/PostList";
 import { AuthContext } from "../../core/context/AuthContext";
+import { supabase } from "../../core/service/supabaseService/supabaseClient";
+import { authenticationRepository } from "../../core/service/authenticationService/authenticationRepository";
+import { PostDto } from "../../core/dto/PostDto";
 
-interface HomeProps {
-  posts: Post[];
-}
-
-export const getServerSideProps: GetServerSideProps<HomeProps> = async (
-  context
-) => {
-  const { data } = await postRepository.getAllPost();
-  return {
-    props: {
-      posts: data ?? [],
-    },
-  };
-};
-
-export default function Index(props: HomeProps) {
-  const [posts, setPosts] = useState<Post[]>(props.posts);
+export default function Index() {
+  const [posts, setPosts] = useState<PostDto[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const authContext = useContext(AuthContext);
   const router = useRouter();
 
   useEffect(() => {
     authContext.isAuthenticated ? "" : router.replace("/");
+    getPostFromUser(
+      authContext.currentUser?.id ? authContext.currentUser?.id : ""
+    );
   }, []);
 
+  const getPostFromUser = async (userId: string) => {
+    const { data, error } = await postRepository.getPostByUserWithNickname(
+      userId
+    );
+    setPosts(data ? data : []);
+  };
   const deletePost = async (postId: string) => {
     const { data, error } = await postRepository.deletePost(postId);
     setErrorMessage(error ? error.message : "");
@@ -41,10 +38,12 @@ export default function Index(props: HomeProps) {
         return prev.filter((item) => item.id != postId);
       });
     }
-    const responseData = await postRepository.getAllPost();
-    const dataAllPost = responseData.body;
-    if (dataAllPost) {
-      setPosts(dataAllPost);
+    const responseData = await postRepository.getPostByUserWithNickname(
+      authContext.currentUser?.id ? authContext.currentUser?.id : ""
+    );
+    const dataAllPostByUser = responseData.body;
+    if (dataAllPostByUser) {
+      setPosts(dataAllPostByUser);
     } else {
       setPosts([]);
     }

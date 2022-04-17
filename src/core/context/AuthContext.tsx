@@ -40,13 +40,11 @@ export const AuthContextProvider = (props: AuthContextProviderProps) => {
   const logout = () => {
     authenticationRepository.signOut();
     authenticationRepository.signOutServerSide(token);
-    console.log(token);
     setToken("");
     setCurrentUser(undefined);
 
     // remove the token from local storage
     localStorage.removeItem(TOKEN_KEY);
-    console.log(token);
   };
 
   const authContextValue: AuthContextValue = {
