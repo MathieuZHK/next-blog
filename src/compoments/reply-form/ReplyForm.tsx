@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { PostDto } from "../../core/dto/PostDto";
 import { Reply } from "../../core/model/Reply";
+import styles from "../reply-form/replyform.module.css";
 
 interface PostItemProps {
   post?: PostDto;
@@ -30,11 +31,18 @@ export default function ReplyForm(props: PostItemProps) {
             type="text"
             onChange={(e) => setReply(e.target.value ? e.target.value : "")}
             placeholder="Repondre..."
+            className={styles.inputText}
           ></input>
-          <button type="submit">Envoyer</button>
+          <button className={styles.myButton} type="submit">
+            Envoyer
+          </button>
         </form>
       ) : (
-        <button type="button" onClick={() => setReplyFormShow(true)}>
+        <button
+          type="button"
+          onClick={() => setReplyFormShow(true)}
+          className={styles.myButton}
+        >
           Repondre
         </button>
       )}

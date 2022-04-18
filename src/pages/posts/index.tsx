@@ -1,15 +1,11 @@
-import { GetServerSideProps } from "next";
 import { useContext, useEffect, useState } from "react";
-
 import { useRouter } from "next/router";
-import { Post } from "../../core/model/Post";
 import { postRepository } from "../../core/service/postService/postRepository";
 import NavBar from "../../compoments/nav-bar/NavBar";
 import PostList from "../../compoments/post-list/PostList";
 import { AuthContext } from "../../core/context/AuthContext";
-import { supabase } from "../../core/service/supabaseService/supabaseClient";
-import { authenticationRepository } from "../../core/service/authenticationService/authenticationRepository";
 import { PostDto } from "../../core/dto/PostDto";
+import styles from "../../compoments/post-form/postform.module.css";
 
 export default function Index() {
   const [posts, setPosts] = useState<PostDto[]>([]);
@@ -18,7 +14,7 @@ export default function Index() {
   const router = useRouter();
 
   useEffect(() => {
-    authContext.isAuthenticated ? "" : router.replace("/");
+    authContext.isAuthenticated ? "" : router.replace("/login");
     getPostFromUser(
       authContext.currentUser?.id ? authContext.currentUser?.id : ""
     );
@@ -63,7 +59,7 @@ export default function Index() {
       <NavBar />
       <h1>NEXTJS BLOG</h1>
       <hr />
-      <button type="button" onClick={clickCreate}>
+      <button type="button" onClick={clickCreate} className={styles.myButton}>
         Créer un post
       </button>
       <PostList

@@ -17,38 +17,27 @@ export default function RegisterForm(props: RegisterFormProps) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "15px",
-        maxWidth: "408px",
-      }}
-    >
+    <form onSubmit={handleSubmit} className={styles.formRegister}>
       <input
         placeholder="nickName"
         value={nickName}
         onChange={(e) => setNickName(e.target.value)}
+        className={styles.inputText}
       />
       <input
         placeholder="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        className={styles.inputText}
       />
       <input
         placeholder="password"
         type={"password"}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        className={styles.inputText}
       />
-      <button
-        type="submit"
-        style={{
-          width: "408px",
-          height: "25px",
-        }}
-      >
+      <button type="submit" className={styles.myButton}>
         INSCRIPTION
       </button>
     </form>

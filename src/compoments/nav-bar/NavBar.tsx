@@ -10,7 +10,7 @@ export default function NavBar() {
 
   const onLogOut = () => {
     authContext.logout();
-    router.replace("/");
+    router.replace("/login");
   };
 
   return (
@@ -36,15 +36,15 @@ export default function NavBar() {
 
         {authContext.isAuthenticated && (
           <div id="end">
-            <button className={styles.aUser} onClick={onLogOut}>
-              Déconnexion{" "}
+            <button className={styles.myButton} onClick={onLogOut}>
+              Déconnexion
             </button>
           </div>
         )}
         {authContext.isAuthenticated == false && (
           <div id="end">
             <Link href={"/login"}>
-              <a className={styles.aUser}>Connexion</a>
+              <a className={styles.myButton}>Connexion</a>
             </Link>
           </div>
         )}

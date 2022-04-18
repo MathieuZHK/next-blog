@@ -16,9 +16,6 @@ interface AuthContextProviderProps {
   children: ReactNode;
 }
 
-// a constant for localStorage key
-export const TOKEN_KEY = "token";
-
 // create the context with a default value
 export const AuthContext = createContext({} as AuthContextValue);
 

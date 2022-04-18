@@ -23,7 +23,6 @@ export default function Register() {
 
   return (
     <>
-      <NavBar />
       <RegisterForm onRegister={onRegister} />
     </>
   );

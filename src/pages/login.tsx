@@ -5,6 +5,7 @@ import { userRepository } from "../core/service/userService/userRepository";
 import { useState, useContext } from "react";
 import { AuthContext } from "../core/context/AuthContext";
 import { useRouter } from "next/router";
+import styles from "../compoments/login-form/loginform.module.css";
 
 export default function Login() {
   const authContext = useContext(AuthContext);
@@ -41,7 +42,6 @@ export default function Login() {
 
   return (
     <>
-      <NavBar />
       {errorAuthMessage && <p>{errorAuthMessage}</p>}
       <LoginForm onLogin={onLogin} />
     </>

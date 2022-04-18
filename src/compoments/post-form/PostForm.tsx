@@ -37,13 +37,17 @@ export default function PostForm(props: PostFormProps) {
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          className={styles.inputText}
         />
         <textarea
           placeholder="Summary"
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
+          className={styles.inputAreaText}
         />
-        <button type="submit">Enregistrer</button>
+        <button type="submit" className={styles.myButton}>
+          Enregistrer
+        </button>
       </form>
     </>
   );

@@ -17,22 +17,30 @@ interface PostItemProps {
 export default function PostItem(props: PostItemProps) {
   const { post, showDelete, onDelete, showUpdate, showReply, onReply } = props;
   return (
-    <li key={post.id}>
-      <h2>{post.user.nickname} A DIT :</h2>
-      <h3>{post.summary}</h3>
-      <ReplyList replys={post.reply} />
-      {showReply && <ReplyForm onReply={onReply} post={post} />}
+    <li key={post.id} className={styles.liNone}>
+      <div className={styles.card}>
+        <h4 className={styles.cardNickname}>{post.user.nickname}</h4>
+        <h3>{post.summary}</h3>
+      </div>
+      <div className={styles.container}>
+        {showReply && <ReplyForm onReply={onReply} post={post} />}
+        <ReplyList replys={post.reply} />
 
-      {showDelete && (
-        <button type="button" onClick={() => onDelete?.(post.id)}>
-          Supprimer
-        </button>
-      )}
-      {showUpdate && (
-        <Link href={`/posts/update/${post.id}`}>
-          <a>Modifier</a>
-        </Link>
-      )}
+        {showDelete && (
+          <button
+            className={styles.myButton}
+            type="button"
+            onClick={() => onDelete?.(post.id)}
+          >
+            Supprimer
+          </button>
+        )}
+        {showUpdate && (
+          <Link href={`/posts/update/${post.id}`}>
+            <a className={styles.myButton}>Modifier</a>
+          </Link>
+        )}
+      </div>
     </li>
   );
 }
