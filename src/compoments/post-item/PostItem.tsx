@@ -16,7 +16,6 @@ interface PostItemProps {
 
 export default function PostItem(props: PostItemProps) {
   const { post, showDelete, onDelete, showUpdate, showReply, onReply } = props;
-  console.log(post);
   return (
     <li key={post.id}>
       <h2>{post.user.nickname} A DIT :</h2>
