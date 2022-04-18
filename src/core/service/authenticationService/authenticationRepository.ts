@@ -22,8 +22,8 @@ async function createAuthUser(data: RegisterDto) {
   return await supabase.auth.api.createUser(data);
 }
 
-async function getJwtTokenFromLocalStorage() {
-  return localStorage.getItem("token");
+function getUserSession() {
+  return supabase.auth.session();
 }
 
 export const authenticationRepository = {
@@ -32,5 +32,5 @@ export const authenticationRepository = {
   signOut,
   signOutServerSide,
   createAuthUser,
-  getJwtTokenFromLocalStorage,
+  getUserSession,
 };

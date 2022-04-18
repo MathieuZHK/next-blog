@@ -30,6 +30,7 @@ export default function Index() {
     );
     setPosts(data ? data : []);
   };
+
   const deletePost = async (postId: string) => {
     const { data, error } = await postRepository.deletePost(postId);
     setErrorMessage(error ? error.message : "");
@@ -48,8 +49,13 @@ export default function Index() {
       setPosts([]);
     }
   };
+
   const clickCreate = () => {
     router.replace("/posts/create");
+  };
+
+  const onReply = () => {
+    // Nothing here
   };
 
   return (
@@ -60,7 +66,13 @@ export default function Index() {
       <button type="button" onClick={clickCreate}>
         Créer un post
       </button>
-      <PostList posts={posts} showDelete showUpdate onDelete={deletePost} />
+      <PostList
+        posts={posts}
+        showDelete
+        showUpdate
+        onDelete={deletePost}
+        onReply={onReply}
+      />
     </>
   );
 }

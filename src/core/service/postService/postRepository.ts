@@ -13,7 +13,9 @@ async function updatePost(postId: string, data: UpdatePostData) {
 async function getAllPost() {
   return await supabase
     .from<PostDto>("post")
-    .select("id, title, summary, user!post_user_id_fkey(nickname), created_at");
+    .select(
+      "id, title, summary, user!post_user_id_fkey(nickname), created_at, reply!reply_post_id_fkey(reply, created_at, user!reply_user_id_fkey(nickname))"
+    );
 }
 
 async function getPostByUser(userId: string) {

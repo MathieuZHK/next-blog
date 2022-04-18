@@ -17,15 +17,10 @@ export default function Login() {
       password,
     });
     if (!respAuthUser.error) {
-      var token = respAuthUser.session?.access_token
-        ? respAuthUser.session.access_token
-        : "";
-
       const authUserId = respAuthUser.user?.id;
       var respUser = await userRepository.getUserByAuthUserId(
         authUserId ? authUserId : ""
       );
-      authContext.saveToken(token);
       if (
         respUser !== undefined &&
         respUser.data !== undefined &&
@@ -33,6 +28,10 @@ export default function Login() {
         respUser.data.length > 0
       ) {
         authContext.setCurrentUser(respUser.data[0]);
+        const token = authenticationRepository.getUserSession()?.access_token;
+        if (token !== undefined) {
+          authContext.saveToken(token);
+        }
       }
       router.replace("/posts");
     } else {

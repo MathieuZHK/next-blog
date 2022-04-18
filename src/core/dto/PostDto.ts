@@ -1,3 +1,4 @@
+import { Reply } from "../model/Reply";
 import { User } from "../model/User";
 
 export interface PostDto {
@@ -6,4 +7,5 @@ export interface PostDto {
   summary: string;
   created_at: string;
   user: User;
+  reply: Reply[];
 }

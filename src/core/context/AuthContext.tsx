@@ -33,8 +33,6 @@ export const AuthContextProvider = (props: AuthContextProviderProps) => {
 
   const saveToken = (token: string) => {
     setToken(token);
-    // save the token to local storage so it persist on page reload
-    localStorage.setItem(TOKEN_KEY, token);
   };
 
   const logout = () => {
@@ -42,9 +40,6 @@ export const AuthContextProvider = (props: AuthContextProviderProps) => {
     authenticationRepository.signOutServerSide(token);
     setToken("");
     setCurrentUser(undefined);
-
-    // remove the token from local storage
-    localStorage.removeItem(TOKEN_KEY);
   };
 
   const authContextValue: AuthContextValue = {

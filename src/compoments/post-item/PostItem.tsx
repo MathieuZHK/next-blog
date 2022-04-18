@@ -1,24 +1,28 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { PostDto } from "../../core/dto/PostDto";
-import { Post } from "../../core/model/Post";
 import styles from "../post-item/postitem.module.css";
+import ReplyForm from "../reply-form/ReplyForm";
+import ReplyList from "../reply-list/ReplyList";
 
 interface PostItemProps {
   post: PostDto;
   showDelete?: boolean;
   showUpdate?: boolean;
+  showReply?: boolean;
   onDelete?: (postId: string) => void;
+  onReply: (reply: string, postId: string) => void;
 }
 
 export default function PostItem(props: PostItemProps) {
-  const { post, showDelete, onDelete, showUpdate } = props;
-
+  const { post, showDelete, onDelete, showUpdate, showReply, onReply } = props;
+  console.log(post);
   return (
     <li key={post.id}>
-      <h1>{post.title}</h1>
-      <h2>{post.user.nickname}</h2>
+      <h2>{post.user.nickname} A DIT :</h2>
       <h3>{post.summary}</h3>
+      <ReplyList replys={post.reply} />
+      {showReply && <ReplyForm onReply={onReply} post={post} />}
 
       {showDelete && (
         <button type="button" onClick={() => onDelete?.(post.id)}>

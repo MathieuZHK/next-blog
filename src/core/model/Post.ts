@@ -1,3 +1,4 @@
+import { Reply } from "./Reply";
 import { User } from "./User";
 
 export interface Post {
