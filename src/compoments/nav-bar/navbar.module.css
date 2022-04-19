@@ -10,9 +10,17 @@
   justify-content: space-between;
 }
 
+.ul {
+  list-style-type: none;
+  background-color: #57548b;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 .li {
   height: 100%;
-  display: flex;
+  display: inline;
   align-items: center;
 }
 

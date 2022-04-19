@@ -16,6 +16,9 @@ export default function NavBar() {
   return (
     <>
       <div id="container" className={styles.container}>
+        <div className={styles.aUser}>
+          <h3>Bonjour {authContext.currentUser?.nickname}</h3>
+        </div>
         <div id="start">
           <Link href={"/"}>
             <a className={styles.aUser}>Accueil</a>
