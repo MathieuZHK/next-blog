@@ -19,10 +19,9 @@ export default function PostPage(props: PostProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
-  const onPostSubmit = async (title: string, summary: string) => {
+  const onPostSubmit = async (summary: string) => {
     if (props.post?.id) {
       const { data, error } = await postRepository.updatePost(props.post?.id, {
-        title,
         summary,
       });
       setErrorMessage(error ? error.message : "");
@@ -43,11 +42,7 @@ export default function PostPage(props: PostProps) {
       <NavBar />
       <h1>Mettre à jour le post</h1>
       {errorMessage && <p>{errorMessage}</p>}
-      <PostForm
-        onPostSubmit={onPostSubmit}
-        title={props.post?.title}
-        summary={props.post?.summary}
-      />
+      <PostForm onPostSubmit={onPostSubmit} summary={props.post?.summary} />
       <button type="button" onClick={onClickBack}>
         Retour aux posts
       </button>
