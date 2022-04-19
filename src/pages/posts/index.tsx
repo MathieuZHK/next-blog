@@ -57,18 +57,20 @@ export default function Index() {
   return (
     <>
       <NavBar />
-      <h1>NEXTJS BLOG</h1>
+      <h1>Mon espace</h1>
       <hr />
       <button type="button" onClick={clickCreate} className={styles.myButton}>
         Créer un post
       </button>
-      <PostList
-        posts={posts}
-        showDelete
-        showUpdate
-        onDelete={deletePost}
-        onReply={onReply}
-      />
+      <div>
+        <PostList
+          posts={posts}
+          showDelete
+          showUpdate
+          onDelete={deletePost}
+          onReply={onReply}
+        />
+      </div>
     </>
   );
 }

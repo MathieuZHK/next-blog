@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: hsl(0, 0%, 18.82%);
+  background-color: #57548b;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -39,9 +39,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  background-color: rgb(58, 116, 202);
-  border-radius: 40px;
-  box-shadow: 5px 2px 2px rgb(58, 116, 202);
+  background-color: #57548b;
 }
 
 .divCenter {
@@ -68,7 +66,7 @@
   margin: 0 0 0 10px;
 }
 
-.myButton {
+.myButton1 {
   box-shadow: inset 0px 1px 0px 0px #ffffff;
   background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
   background-color: #ffffff;
@@ -85,10 +83,27 @@
   text-shadow: 0px 1px 0px #ffffff;
 }
 .myButton:hover {
-  background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
-  background-color: #f6f6f6;
+  border: 1px;
+  border-color: #dcdcdc;
 }
 .myButton:active {
   position: relative;
   top: 1px;
+}
+
+.myButton {
+  font-size: 14px;
+  padding: 16px 20px;
+  border-radius: 10px;
+  border: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-style: normal;
+  display: flexbox;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.2s;
+  color: white;
+  background-color: #57548b;
 }

@@ -28,11 +28,7 @@ export default function NavBar() {
             </Link>
           </div>
         )}
-        <div id="center" className={styles.divCenter}>
-          <Link href={"/register"}>
-            <a className={styles.aUser}>Inscription</a>
-          </Link>
-        </div>
+        <div id="center" className={styles.divCenter}></div>
 
         {authContext.isAuthenticated && (
           <div id="end">

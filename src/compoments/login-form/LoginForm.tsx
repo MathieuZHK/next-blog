@@ -20,26 +20,40 @@ export default function LoginForm(props: LoginFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.formLogin}>
-      <input
-        placeholder="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className={styles.inputText}
-      />
-      <input
-        placeholder="password"
-        type={"password"}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className={styles.inputText}
-      />
-      <button type="submit" className={styles.myButton}>
-        SE CONNECTER
-      </button>
-      <button type="button" className={styles.myButton} onClick={onSubscribe}>
-        INSCRIPTION
-      </button>
-    </form>
+    <div className={styles.container}>
+      <div className={styles.screen}>
+        <div className={styles.screenContent}>
+          <form onSubmit={handleSubmit} className={styles.login}>
+            <span className={styles.logo}>WoE</span>
+
+            <div className={styles.loginField}>
+              <input
+                placeholder="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={styles.loginInput}
+              />
+              <input
+                placeholder="password"
+                type={"password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={styles.loginInput}
+              />
+              <button type="submit" className={styles.loginSubmit}>
+                SE CONNECTER
+              </button>
+              <button
+                type="button"
+                className={styles.loginSubmit}
+                onClick={onSubscribe}
+              >
+                INSCRIPTION
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }

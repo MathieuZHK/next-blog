@@ -3,26 +3,44 @@ import { userRepository } from "../core/service/userService/userRepository";
 import { RoleEnum } from "../core/enum/RoleEnum";
 import RegisterForm from "../compoments/register-form/RegisterForm";
 import NavBar from "../compoments/nav-bar/NavBar";
+import { useState } from "react";
+import { ApiError } from "@supabase/supabase-js";
+import styles from "../compoments/register-form/registerform.module.css";
+import { useRouter } from "next/router";
 
 export default function Register() {
+  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
+
   const onRegister = async (
     email: string,
     password: string,
     nickName: string
   ) => {
-    const respAuthUser = await authenticationRepository.signUp({
+    const { user, error } = await authenticationRepository.signUp({
       email: email,
       password: password,
     });
-    const respUser = await userRepository.createUser({
-      nickname: nickName,
-      role: RoleEnum.USER,
-      auth_user_id: respAuthUser.user?.id,
-    });
+    setErrorMessage(error?.message ? error.message : "");
+    if (!errorMessage) {
+      console.log(errorMessage);
+      const { data, error } = await userRepository.createUser({
+        nickname: nickName,
+        role: RoleEnum.USER,
+        auth_user_id: user?.id,
+      });
+      if (data) {
+        console.log(data);
+        router.replace("/login");
+      }
+    }
   };
 
   return (
     <>
+      {errorMessage && (
+        <div className={styles.errorScreen}> {errorMessage}</div>
+      )}
       <RegisterForm onRegister={onRegister} />
     </>
   );

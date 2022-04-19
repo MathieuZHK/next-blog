@@ -42,8 +42,12 @@ export default function Login() {
 
   return (
     <>
-      {errorAuthMessage && <p>{errorAuthMessage}</p>}
-      <LoginForm onLogin={onLogin} />
+      <div>
+        <div className={styles.errorScreen}>
+          {errorAuthMessage && <p>{errorAuthMessage}</p>}
+        </div>
+        <LoginForm onLogin={onLogin} />
+      </div>
     </>
   );
 }

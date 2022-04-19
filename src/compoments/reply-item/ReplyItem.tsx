@@ -10,8 +10,8 @@ export default function ReplyItem(props: ReplyItemProps) {
   const { reply } = props;
 
   return (
-    <li key={reply.id} className={styles.card}>
-      <h5 className={styles.cardNickname}>{reply.user.nickname}</h5>
+    <li key={reply.id}>
+      <h5>{reply.user.nickname}</h5>
       <h4>{reply.reply}</h4>
     </li>
   );
