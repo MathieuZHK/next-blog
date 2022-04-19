@@ -57,9 +57,12 @@ export default function Index() {
   return (
     <>
       <NavBar />
-      <h1>Mon espace</h1>
-      <hr />
-      <button type="button" onClick={clickCreate} className={styles.myButton}>
+
+      <button
+        type="button"
+        onClick={clickCreate}
+        className={styles.buttonSubmit}
+      >
         Créer un post
       </button>
       <div>

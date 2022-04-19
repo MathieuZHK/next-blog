@@ -11,8 +11,12 @@ export default function ReplyItem(props: ReplyItemProps) {
 
   return (
     <li key={reply.id}>
-      <h5>{reply.user.nickname}</h5>
-      <h4>{reply.reply}</h4>
+      <div className={styles.card}>
+        <h5>{reply.user.nickname}</h5>
+        <div className={styles.cardReply}>
+          <h4>{reply.reply}</h4>
+        </div>
+      </div>
     </li>
   );
 }

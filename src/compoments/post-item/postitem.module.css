@@ -5,15 +5,68 @@
 }
 
 .card {
-  border: 2px solid #d1d1d4;
-  border-radius: 10px;
+  background: whitesmoke;
+  border-color: #6a679e;
+  border: 3px;
+  border-radius: 20px;
   display: flex;
-  align-items: center;
-  justify-content: center;
   width: 25%;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  padding: 16px 20px;
+  font-size: 14px;
 }
 
 .cardPost {
+  background: #e7e6f1;
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+
+.buttonUpdate {
+  background: whitesmoke;
+  font-size: 14px;
+  margin-top: 30px;
+  padding: 16px 20px;
+  border-radius: 20px;
+  border: 3px;
+  border-color: #6a679e;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flexbox;
+  width: 200px;
+  color: #57548b;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.buttonUpdate:active,
+.buttonUpdate:focus,
+.buttonUpdate:hover {
   border: 5px;
-  border-color: black;
+  background: #bdbaf7;
+}
+
+.buttonDelete {
+  background: whitesmoke;
+  font-size: 14px;
+  margin-top: 5px;
+  padding: 16px 20px;
+  border-radius: 20px;
+  border: 3px;
+  border-color: #6a679e;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flexbox;
+  align-items: center;
+  width: 200px;
+  color: #57548b;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.buttonDelete:active,
+.buttonDelete:focus,
+.buttonDelete:hover {
+  border: 5px;
+  background: #bdbaf7;
 }

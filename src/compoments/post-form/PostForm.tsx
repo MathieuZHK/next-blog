@@ -24,31 +24,33 @@ export default function PostForm(props: PostFormProps) {
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "24px",
-          maxWidth: "408px",
-        }}
-      >
-        <input
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className={styles.inputText}
-        />
-        <textarea
-          placeholder="Summary"
-          value={summary}
-          onChange={(e) => setSummary(e.target.value)}
-          className={styles.inputAreaText}
-        />
-        <button type="submit" className={styles.myButton}>
-          Enregistrer
-        </button>
-      </form>
+      <div className={styles.card}>
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "24px",
+            maxWidth: "408px",
+          }}
+        >
+          <input
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className={styles.titleInput}
+          />
+          <input
+            placeholder="Summary"
+            value={summary}
+            onChange={(e) => setSummary(e.target.value)}
+            className={styles.titleInput}
+          />
+          <button type="submit" className={styles.buttonSubmit}>
+            Enregistrer
+          </button>
+        </form>
+      </div>
     </>
   );
 }

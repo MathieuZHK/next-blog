@@ -19,9 +19,13 @@ export default function PostItem(props: PostItemProps) {
   return (
     <div>
       <li key={post.id}>
-        <div className={styles.cardPost}>
-          <h4 className={styles.cardNickname}>{post.user.nickname}</h4>
-          <h3>{post.summary}</h3>
+        <div className={styles.card}>
+          <div>
+            <h4>{post.user.nickname}</h4>
+          </div>
+          <div className={styles.cardPost}>
+            <h3>{post.summary}</h3>
+          </div>
         </div>
         <div>
           {showReply && <ReplyForm onReply={onReply} post={post} />}
@@ -29,7 +33,7 @@ export default function PostItem(props: PostItemProps) {
 
           {showDelete && (
             <button
-              className={styles.myButton}
+              className={styles.buttonDelete}
               type="button"
               onClick={() => onDelete?.(post.id)}
             >
@@ -38,7 +42,7 @@ export default function PostItem(props: PostItemProps) {
           )}
           {showUpdate && (
             <Link href={`/posts/update/${post.id}`}>
-              <a className={styles.myButton}>Modifier</a>
+              <a className={styles.buttonUpdate}>Modifier</a>
             </Link>
           )}
         </div>

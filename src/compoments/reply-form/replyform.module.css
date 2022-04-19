@@ -1,35 +1,73 @@
-.myButton {
-  box-shadow: inset 0px 1px 0px 0px #ffffff;
-  background: linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
-  background-color: #f9f9f9;
-  border-radius: 6px;
-  border: 1px solid #dcdcdc;
-  display: inline-block;
-  cursor: pointer;
-  color: #666666;
-  font-family: Arial;
-  font-size: 15px;
-  font-weight: bold;
-  padding: 6px 24px;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #ffffff;
-}
-.myButton:hover {
-  background: linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
-  background-color: #e9e9e9;
-}
-.myButton:active {
+.loginField {
+  padding: 20px 0px;
   position: relative;
-  top: 1px;
 }
 
-.inputText {
-  padding: 6px;
-  margin: 5px 10px;
-  border: 0;
+.replyInput {
+  border: none;
+  border-bottom: 2px solid #d1d1d4;
+  background: none;
+  padding: 10px;
+  padding-left: 24px;
+  margin-right: 10px;
+  font-weight: 800;
+  font-size: small;
+  width: 25%;
+  height: 30px;
+  transition: 0.2s;
   border-radius: 10px;
-  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
-  width: 15%;
-  font-family: inherit;
-  font-size: inherit;
+}
+.replyInput:active,
+.replyInput:focus,
+.replyInput:hover {
+  outline: none;
+  border-bottom-color: #6a679e;
+}
+.sendSubmit {
+  background: whitesmoke;
+  font-size: 14px;
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 20px;
+  border: 3px;
+  border-color: #6a679e;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flexbox;
+  align-items: center;
+  width: 25%;
+  color: #57548b;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.sendSubmit:active,
+.sendSubmit:focus,
+.sendSubmit:hover {
+  border: 5px;
+  background: #bdbaf7;
+}
+
+.replySubmit {
+  background: whitesmoke;
+  font-size: 14px;
+  margin-top: 5px;
+  padding: 10px 10px 10px 10px;
+  border-radius: 20px;
+  border: 3px;
+  border-color: #6a679e;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flexbox;
+  align-items: center;
+  width: 5%;
+  color: #57548b;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.replySubmit:active,
+.replySubmit:focus,
+.replySubmit:hover {
+  border: 5px;
+  background: #bdbaf7;
 }

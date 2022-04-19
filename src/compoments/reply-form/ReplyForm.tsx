@@ -31,9 +31,9 @@ export default function ReplyForm(props: PostItemProps) {
             type="text"
             onChange={(e) => setReply(e.target.value ? e.target.value : "")}
             placeholder="Repondre..."
-            className={styles.inputText}
+            className={styles.replyInput}
           ></input>
-          <button className={styles.myButton} type="submit">
+          <button className={styles.replySubmit} type="submit">
             Envoyer
           </button>
         </form>
@@ -41,7 +41,7 @@ export default function ReplyForm(props: PostItemProps) {
         <button
           type="button"
           onClick={() => setReplyFormShow(true)}
-          className={styles.myButton}
+          className={styles.sendSubmit}
         >
           Repondre
         </button>

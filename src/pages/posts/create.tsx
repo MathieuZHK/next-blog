@@ -40,12 +40,15 @@ export default function Create() {
   return (
     <>
       <NavBar />
-      <h1>Creer un post</h1>
-      {errorMessage && <p>{errorMessage}</p>}
-      <PostForm onPostSubmit={onPostSubmit} />
-      <button type="button" onClick={onClickBack} className={styles.myButton}>
+      <button
+        type="button"
+        onClick={onClickBack}
+        className={styles.buttonSubmit}
+      >
         Retour aux posts
       </button>
+      {errorMessage && <p>{errorMessage}</p>}
+      <PostForm onPostSubmit={onPostSubmit} />
     </>
   );
 }

@@ -40,7 +40,6 @@ export default function Home(props: HomeProps) {
   return (
     <div>
       <NavBar />
-      <h1>XPRESSION</h1>
       {errorMessage && <p>{errorMessage}</p>}
       <PostList
         posts={posts}

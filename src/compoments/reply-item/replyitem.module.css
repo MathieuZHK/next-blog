@@ -1,32 +1,25 @@
-.card {
-  transition: 0.3s;
-  align-items: center;
-  width: 25%;
-  border: solid;
-  border-radius: 10px;
-  color: #1c1e21;
-  direction: ltr;
-  line-height: 1.34;
-}
-
-.cardNickname {
-  width: auto;
-  height: 10%;
-  border-radius: 10px;
-  border-color: black;
-  border-width: 1px;
-  border: solid;
-  padding-left: 5px;
-}
-
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-}
-
 .container {
-  padding: 2px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.liNone {
-  list-style-type: none;
+.card {
+  background: whitesmoke;
+  border-color: #6a679e;
+  border: 3px;
+  border-radius: 20px;
+  display: flex;
+  width: 25%;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  padding: 16px 20px;
+  font-size: 14px;
+}
+
+.cardReply {
+  background: #e7e6f1;
+  border-radius: 10px;
+  padding: 16px 20px;
 }
