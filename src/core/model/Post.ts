@@ -3,7 +3,6 @@ import { User } from "./User";
 
 export interface Post {
   id: string;
-  title: string;
   summary: string;
   user_id: string;
   created_at: string;

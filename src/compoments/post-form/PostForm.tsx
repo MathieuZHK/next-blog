@@ -35,12 +35,6 @@ export default function PostForm(props: PostFormProps) {
           }}
         >
           <input
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className={styles.titleInput}
-          />
-          <input
             placeholder="Summary"
             value={summary}
             onChange={(e) => setSummary(e.target.value)}

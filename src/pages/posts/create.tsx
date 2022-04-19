@@ -17,13 +17,11 @@ export default function Create() {
   }, []);
 
   const onPostSubmit = async (
-    title: string,
     summary: string,
     user_id: string,
     id?: string
   ) => {
     const { data, error } = await postRepository.createPost({
-      title,
       summary,
       user_id,
     });

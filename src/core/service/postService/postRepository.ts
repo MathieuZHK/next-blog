@@ -14,7 +14,7 @@ async function getAllPost() {
   return await supabase
     .from<PostDto>("post")
     .select(
-      "id, title, summary, user!post_user_id_fkey(nickname), created_at, reply!reply_post_id_fkey(reply, created_at, user!reply_user_id_fkey(nickname))"
+      "id, summary, user!post_user_id_fkey(nickname), created_at, reply!reply_post_id_fkey(reply, created_at, user!reply_user_id_fkey(nickname))"
     );
 }
 
@@ -33,7 +33,7 @@ async function deletePost(postId: string) {
 async function getPostByUserWithNickname(userId: string) {
   return await supabase
     .from<PostDto>("post")
-    .select("id, title, summary, user!post_user_id_fkey(nickname), created_at")
+    .select("id, summary, user!post_user_id_fkey(nickname), created_at")
     .match({ user_id: userId });
 }
 
