@@ -23,8 +23,8 @@ async function getPostByUser(userId: string) {
   return await supabase
     .from<Post>("post")
     .select()
-    .match({ user_id: userId })
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .match({ user_id: userId });
 }
 
 async function getPostById(postId: string) {
@@ -39,6 +39,7 @@ async function getPostByUserWithNickname(userId: string) {
   return await supabase
     .from<PostDto>("post")
     .select("id, summary, user!post_user_id_fkey(nickname), created_at")
+    .order("created_at", { ascending: false })
     .match({ user_id: userId });
 }
 

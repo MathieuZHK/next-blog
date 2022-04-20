@@ -21,6 +21,12 @@ export default function Home(props: HomeProps) {
   const authContext = useContext(AuthContext);
   const router = useRouter();
 
+  useEffect(() => {
+    if (!authContext.isAuthenticated) {
+      router.replace("/login");
+    }
+  }, []);
+
   const onReply = async (reply: string, postId: string) => {
     const { data, error } = await replyRepository.createReply({
       reply: reply,
