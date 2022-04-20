@@ -1,6 +1,7 @@
 import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../../core/context/AuthContext";
 import styles from "../post-form/postform.module.css";
+import { authenticationRepository } from "../../core/service/authenticationService/authenticationRepository";
 
 interface PostFormProps {
   summary?: string;
@@ -11,11 +12,13 @@ interface PostFormProps {
 export default function PostForm(props: PostFormProps) {
   const [summary, setSummary] = useState(props.summary ? props.summary : "");
   const authContext = useContext(AuthContext);
-  const userId = authContext.currentUser?.id;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.onPostSubmit(summary, userId ? userId : "");
+    props.onPostSubmit(
+      summary,
+      authContext.currentUser?.id ? authContext.currentUser?.id : ""
+    );
     setSummary("");
   };
 

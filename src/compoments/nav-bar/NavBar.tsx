@@ -1,8 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "../nav-bar/navbar.module.css";
 import Link from "next/link";
 import { AuthContext } from "../../core/context/AuthContext";
 import { useRouter } from "next/router";
+import { authenticationRepository } from "../../core/service/authenticationService/authenticationRepository";
+import { userRepository } from "../../core/service/userService/userRepository";
 
 export default function NavBar() {
   const authContext = useContext(AuthContext);
@@ -17,7 +19,12 @@ export default function NavBar() {
     <>
       <div id="container" className={styles.container}>
         <div className={styles.aUser}>
-          <h3>Bonjour {authContext.currentUser?.nickname}</h3>
+          <h3>
+            Bonjour{" "}
+            {authContext.currentUser?.nickname
+              ? authContext.currentUser?.nickname
+              : ""}
+          </h3>
         </div>
         <div id="start">
           <Link href={"/"}>
@@ -40,7 +47,7 @@ export default function NavBar() {
             </button>
           </div>
         )}
-        {authContext.isAuthenticated == false && (
+        {!authContext.isAuthenticated && (
           <div id="end">
             <Link href={"/login"}>
               <a className={styles.myButton}>Connexion</a>

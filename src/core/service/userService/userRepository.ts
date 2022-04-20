@@ -18,10 +18,7 @@ async function getUserById(userId: string) {
 }
 
 async function getUserByAuthUserId(authUserId: string) {
-  return await supabase
-    .from<User>("user")
-    .select()
-    .eq("auth_user_id", authUserId);
+  return await supabase.from<User>("user").select().eq("id", authUserId);
 }
 
 async function deleteUser(userId: string) {

@@ -15,11 +15,16 @@ async function getAllPost() {
     .from<PostDto>("post")
     .select(
       "id, summary, user!post_user_id_fkey(nickname), created_at, reply!reply_post_id_fkey(reply, created_at, user!reply_user_id_fkey(nickname))"
-    );
+    )
+    .order("created_at", { ascending: false });
 }
 
 async function getPostByUser(userId: string) {
-  return await supabase.from<Post>("post").select().match({ user_id: userId });
+  return await supabase
+    .from<Post>("post")
+    .select()
+    .match({ user_id: userId })
+    .order("created_at", { ascending: false });
 }
 
 async function getPostById(postId: string) {

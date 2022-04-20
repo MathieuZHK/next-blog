@@ -6,6 +6,10 @@ import PostList from "../../compoments/post-list/PostList";
 import { AuthContext } from "../../core/context/AuthContext";
 import { PostDto } from "../../core/dto/PostDto";
 import styles from "../../compoments/post-form/postform.module.css";
+import { authenticationRepository } from "../../core/service/authenticationService/authenticationRepository";
+import { User } from "../../core/model/User";
+import { userRepository } from "../../core/service/userService/userRepository";
+import { GetServerSideProps } from "next";
 
 export default function Index() {
   const [posts, setPosts] = useState<PostDto[]>([]);
@@ -15,9 +19,11 @@ export default function Index() {
 
   useEffect(() => {
     authContext.isAuthenticated ? "" : router.replace("/login");
-    getPostFromUser(
-      authContext.currentUser?.id ? authContext.currentUser?.id : ""
-    );
+    if (authContext.currentUser) {
+      getPostFromUser(
+        authContext.currentUser.id ? authContext.currentUser.id : ""
+      );
+    }
   }, []);
 
   const getPostFromUser = async (userId: string) => {

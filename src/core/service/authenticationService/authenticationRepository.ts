@@ -26,6 +26,10 @@ function getUserSession() {
   return supabase.auth.session();
 }
 
+function setAuthCookie(req: any, res: any) {
+  return supabase.auth.api.setAuthCookie(req, res);
+}
+
 export const authenticationRepository = {
   signUp,
   signIn,
@@ -33,4 +37,5 @@ export const authenticationRepository = {
   signOutServerSide,
   createAuthUser,
   getUserSession,
+  setAuthCookie,
 };

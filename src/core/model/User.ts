@@ -4,7 +4,6 @@ export interface User {
   id: string;
   nickname: string;
   role: RoleEnum;
-  auth_user_id: string;
   created_at: string;
 }
 export type CreateUserData = Partial<User>;

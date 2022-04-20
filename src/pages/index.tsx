@@ -7,6 +7,9 @@ import { AuthContext } from "../core/context/AuthContext";
 import { PostDto } from "../core/dto/PostDto";
 import { replyRepository } from "../core/service/replyService/replyRepository";
 import { useRouter } from "next/router";
+import { authenticationRepository } from "../core/service/authenticationService/authenticationRepository";
+import { User } from "../core/model/User";
+import { userRepository } from "../core/service/userService/userRepository";
 
 interface HomeProps {
   posts: PostDto[];
@@ -17,10 +20,6 @@ export default function Home(props: HomeProps) {
   const [posts, setPosts] = useState(props.posts);
   const authContext = useContext(AuthContext);
   const router = useRouter();
-
-  useEffect(() => {
-    authContext.isAuthenticated ? "" : router.replace("/login");
-  }, []);
 
   const onReply = async (reply: string, postId: string) => {
     const { data, error } = await replyRepository.createReply({

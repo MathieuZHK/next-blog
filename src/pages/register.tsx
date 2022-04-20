@@ -23,11 +23,10 @@ export default function Register() {
     });
     setErrorMessage(error?.message ? error.message : "");
     if (!errorMessage) {
-      console.log(errorMessage);
       const { data, error } = await userRepository.createUser({
+        id: user?.id,
         nickname: nickName,
         role: RoleEnum.USER,
-        auth_user_id: user?.id,
       });
       if (data) {
         console.log(data);

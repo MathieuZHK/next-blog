@@ -1,5 +1,4 @@
 import { authenticationRepository } from "../core/service/authenticationService/authenticationRepository";
-import NavBar from "../compoments/nav-bar/NavBar";
 import LoginForm from "../compoments/login-form/LoginForm";
 import { userRepository } from "../core/service/userService/userRepository";
 import { useState, useContext } from "react";
@@ -30,6 +29,7 @@ export default function Login() {
       ) {
         authContext.setCurrentUser(respUser.data[0]);
         const token = authenticationRepository.getUserSession()?.access_token;
+        console.log(token);
         if (token !== undefined) {
           authContext.saveToken(token);
         }
