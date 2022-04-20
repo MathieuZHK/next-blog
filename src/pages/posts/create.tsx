@@ -5,15 +5,42 @@ import PostForm from "../../compoments/post-form/PostForm";
 import { AuthContext } from "../../core/context/AuthContext";
 import { postRepository } from "../../core/service/postService/postRepository";
 import styles from "../../compoments/post-form/postform.module.css";
+import { authenticationRepository } from "../../core/service/authenticationService/authenticationRepository";
+import { userRepository } from "../../core/service/userService/userRepository";
+import { GetServerSideProps } from "next";
 
-export default function Create() {
+interface CreateProps {
+  token: string;
+}
+
+export default function Create(props: CreateProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
-    !authContext.isAuthenticated ? router.replace("/login") : "";
+    if (!authContext.isAuthenticated) {
+      const session = authenticationRepository.getUserSession();
+      if (!session) {
+        router.replace("/");
+      } else {
+        authContext.saveToken(session.access_token);
+        getUserById(session.user?.id ? session.user.id : "");
+      }
+    }
   }, []);
+
+  const getUserById = async (userId: string) => {
+    const { data, error } = await userRepository.getUserById(userId);
+    if (
+      data !== null &&
+      data !== undefined &&
+      data !== null &&
+      data.length > 0
+    ) {
+      authContext.setCurrentUser(data[0]);
+    }
+  };
 
   const onPostSubmit = async (
     summary: string,
@@ -49,3 +76,23 @@ export default function Create() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps<CreateProps> = async (
+  context
+) => {
+  const token = context.req.cookies["sb-access-token"];
+  if (!token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+    };
+  } else {
+    return {
+      props: {
+        token: token,
+      },
+    };
+  }
+};

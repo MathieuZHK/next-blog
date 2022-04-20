@@ -11,20 +11,40 @@ import { User } from "../../core/model/User";
 import { userRepository } from "../../core/service/userService/userRepository";
 import { GetServerSideProps } from "next";
 
-export default function Index() {
+interface PostsProps {
+  token: string;
+}
+
+export default function Index(props: PostsProps) {
   const [posts, setPosts] = useState<PostDto[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const authContext = useContext(AuthContext);
   const router = useRouter();
 
   useEffect(() => {
-    authContext.isAuthenticated ? "" : router.replace("/login");
-    if (authContext.currentUser) {
-      getPostFromUser(
-        authContext.currentUser.id ? authContext.currentUser.id : ""
-      );
+    if (!authContext.isAuthenticated) {
+      const session = authenticationRepository.getUserSession();
+      if (!session) {
+        router.replace("/");
+      } else {
+        authContext.saveToken(session.access_token);
+        getUserById(session.user?.id ? session.user.id : "");
+        getPostFromUser(session.user?.id ? session.user.id : "");
+      }
     }
   }, []);
+
+  const getUserById = async (userId: string) => {
+    const { data, error } = await userRepository.getUserById(userId);
+    if (
+      data !== null &&
+      data !== undefined &&
+      data !== null &&
+      data.length > 0
+    ) {
+      authContext.setCurrentUser(data[0]);
+    }
+  };
 
   const getPostFromUser = async (userId: string) => {
     const { data, error } = await postRepository.getPostByUserWithNickname(
@@ -83,3 +103,23 @@ export default function Index() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps<PostsProps> = async (
+  context
+) => {
+  const token = context.req.cookies["sb-access-token"];
+  if (!token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+    };
+  } else {
+    return {
+      props: {
+        token: token,
+      },
+    };
+  }
+};

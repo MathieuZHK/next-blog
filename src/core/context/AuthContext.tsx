@@ -32,11 +32,15 @@ export const AuthContextProvider = (props: AuthContextProviderProps) => {
     setToken(token);
   };
 
-  const logout = () => {
+  const logout = async () => {
     authenticationRepository.signOut();
     authenticationRepository.signOutServerSide(token);
     setToken("");
     setCurrentUser(undefined);
+    await fetch("/api/auth/remove", {
+      method: "GET",
+      credentials: "same-origin",
+    });
   };
 
   const authContextValue: AuthContextValue = {

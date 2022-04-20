@@ -1,67 +1,65 @@
-import { postRepository } from "../core/service/postService/postRepository";
-import { GetServerSideProps } from "next";
-import NavBar from "../compoments/nav-bar/NavBar";
-import PostList from "../compoments/post-list/PostList";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../core/context/AuthContext";
-import { PostDto } from "../core/dto/PostDto";
-import { replyRepository } from "../core/service/replyService/replyRepository";
-import { useRouter } from "next/router";
 import { authenticationRepository } from "../core/service/authenticationService/authenticationRepository";
-import { User } from "../core/model/User";
+import LoginForm from "../compoments/login-form/LoginForm";
 import { userRepository } from "../core/service/userService/userRepository";
+import { useState, useContext } from "react";
+import { AuthContext } from "../core/context/AuthContext";
+import { useRouter } from "next/router";
+import styles from "../compoments/login-form/loginform.module.css";
+import { supabase } from "../core/service/supabaseService/supabaseClient";
 
-interface HomeProps {
-  posts: PostDto[];
-}
-
-export default function Home(props: HomeProps) {
-  const [errorMessage, setErrorMessage] = useState("");
-  const [posts, setPosts] = useState(props.posts);
+export default function Login() {
   const authContext = useContext(AuthContext);
   const router = useRouter();
+  const [errorAuthMessage, setErrorAuthMessage] = useState("");
 
-  useEffect(() => {
-    if (!authContext.isAuthenticated) {
-      router.replace("/login");
+  supabase.auth.onAuthStateChange(async (event, session) => {
+    const userAuth = authenticationRepository.getAuthUser();
+    if (userAuth) {
+      await fetch("/api/auth/set", {
+        method: "POST",
+        headers: new Headers({ "Content-Type": "application/json" }),
+        credentials: "same-origin",
+        body: JSON.stringify({ event, session }),
+      });
     }
-  }, []);
+  });
 
-  const onReply = async (reply: string, postId: string) => {
-    const { data, error } = await replyRepository.createReply({
-      reply: reply,
-      user_id: authContext.currentUser?.id,
-      post_id: postId,
+  const onLogin = async (email: string, password: string) => {
+    var respAuthUser = await authenticationRepository.signIn({
+      email,
+      password,
     });
-    setErrorMessage(error ? error.message : "");
-    if (!error) {
-      const { data, error } = await postRepository.getAllPost();
-      if (data) {
-        setPosts(data);
+    if (!respAuthUser.error) {
+      const authUserId = respAuthUser.user?.id;
+      var respUser = await userRepository.getUserByAuthUserId(
+        authUserId ? authUserId : ""
+      );
+      if (
+        respUser !== undefined &&
+        respUser.data !== undefined &&
+        respUser.data !== null &&
+        respUser.data.length > 0
+      ) {
+        authContext.setCurrentUser(respUser.data[0]);
+        const token = authenticationRepository.getUserSession()?.access_token;
+        if (token !== undefined) {
+          authContext.saveToken(token);
+        }
       }
+      router.replace("/posts");
+    } else {
+      setErrorAuthMessage(respAuthUser.error.message);
     }
   };
 
   return (
-    <div>
-      <NavBar />
-      {errorMessage && <p>{errorMessage}</p>}
-      <PostList
-        posts={posts}
-        showReply={authContext.isAuthenticated}
-        onReply={onReply}
-      />
-    </div>
+    <>
+      <div>
+        <div className={styles.errorScreen}>
+          {errorAuthMessage && <p>{errorAuthMessage}</p>}
+        </div>
+        <LoginForm onLogin={onLogin} />
+      </div>
+    </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps<HomeProps> = async (
-  context
-) => {
-  const { data } = await postRepository.getAllPost();
-  return {
-    props: {
-      posts: data ?? [],
-    },
-  };
-};

@@ -3,9 +3,16 @@ import { ParsedUrlQuery } from "querystring";
 import { useRouter } from "next/router";
 import { Post } from "../../../core/model/Post";
 import { postRepository } from "../../../core/service/postService/postRepository";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import NavBar from "../../../compoments/nav-bar/NavBar";
 import PostForm from "../../../compoments/post-form/PostForm";
+import { authenticationRepository } from "../../../core/service/authenticationService/authenticationRepository";
+import { AuthContext } from "../../../core/context/AuthContext";
+import { userRepository } from "../../../core/service/userService/userRepository";
+
+interface UpdateProps {
+  token: string;
+}
 
 interface PostProps {
   post?: Post;
@@ -18,6 +25,31 @@ interface PostUrlQuery extends ParsedUrlQuery {
 export default function PostPage(props: PostProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  const authContext = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!authContext.isAuthenticated) {
+      const session = authenticationRepository.getUserSession();
+      if (!session) {
+        router.replace("/");
+      } else {
+        authContext.saveToken(session.access_token);
+        getUserById(session.user?.id ? session.user.id : "");
+      }
+    }
+  }, []);
+
+  const getUserById = async (userId: string) => {
+    const { data, error } = await userRepository.getUserById(userId);
+    if (
+      data !== null &&
+      data !== undefined &&
+      data !== null &&
+      data.length > 0
+    ) {
+      authContext.setCurrentUser(data[0]);
+    }
+  };
 
   const onPostSubmit = async (summary: string) => {
     if (props.post?.id) {
@@ -52,14 +84,25 @@ export default function PostPage(props: PostProps) {
 
 export const getServerSideProps: GetServerSideProps<
   PostProps,
-  PostUrlQuery
+  PostUrlQuery,
+  UpdateProps
 > = async (context) => {
-  const { data, error } = await postRepository.getPostById(
-    context.params?.id ?? ""
-  );
-  return {
-    props: {
-      post: data ? data[0] : undefined,
-    },
-  };
+  const token = context.req.cookies["sb-access-token"];
+  if (token) {
+    const { data, error } = await postRepository.getPostById(
+      context.params?.id ?? ""
+    );
+    return {
+      props: {
+        post: data ? data[0] : undefined,
+      },
+    };
+  } else {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+    };
+  }
 };

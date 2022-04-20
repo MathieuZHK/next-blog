@@ -5,14 +5,40 @@ import { AuthContext } from "../../core/context/AuthContext";
 import { useRouter } from "next/router";
 import { authenticationRepository } from "../../core/service/authenticationService/authenticationRepository";
 import { userRepository } from "../../core/service/userService/userRepository";
+import { User } from "../../core/model/User";
 
 export default function NavBar() {
   const authContext = useContext(AuthContext);
   const router = useRouter();
+  const [userAuth, setUserAuth] = useState<User[]>([]);
+
+  useEffect(() => {
+    if (!authContext.isAuthenticated) {
+      const session = authenticationRepository.getUserSession();
+      if (!session) {
+        router.replace("/");
+      } else {
+        authContext.saveToken(session.access_token);
+        getUserById(session.user?.id ? session.user.id : "");
+      }
+    }
+  }, []);
+
+  const getUserById = async (userId: string) => {
+    const { data, error } = await userRepository.getUserById(userId);
+    if (
+      data !== null &&
+      data !== undefined &&
+      data !== null &&
+      data.length > 0
+    ) {
+      authContext.setCurrentUser(data[0]);
+    }
+  };
 
   const onLogOut = () => {
     authContext.logout();
-    router.replace("/login");
+    router.replace("/");
   };
 
   return (
@@ -27,7 +53,7 @@ export default function NavBar() {
           </h3>
         </div>
         <div id="start">
-          <Link href={"/"}>
+          <Link href={"/dashboard"}>
             <a className={styles.aUser}>Accueil</a>
           </Link>
         </div>
