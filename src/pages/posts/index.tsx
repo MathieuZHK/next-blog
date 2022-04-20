@@ -31,6 +31,10 @@ export default function Index(props: PostsProps) {
         getUserById(session.user?.id ? session.user.id : "");
         getPostFromUser(session.user?.id ? session.user.id : "");
       }
+    } else {
+      getPostFromUser(
+        authContext.currentUser?.id ? authContext.currentUser.id : ""
+      );
     }
   }, []);
 
