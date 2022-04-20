@@ -29,7 +29,6 @@ export default function Register() {
         role: RoleEnum.USER,
       });
       if (data) {
-        console.log(data);
         router.replace("/login");
       }
     }

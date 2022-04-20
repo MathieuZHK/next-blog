@@ -29,7 +29,6 @@ export default function Login() {
       ) {
         authContext.setCurrentUser(respUser.data[0]);
         const token = authenticationRepository.getUserSession()?.access_token;
-        console.log(token);
         if (token !== undefined) {
           authContext.saveToken(token);
         }
