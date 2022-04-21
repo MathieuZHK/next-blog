@@ -48,11 +48,11 @@ export default function Login() {
           authContext.saveToken(token);
         }
       }
-      setIsLoading(false);
       router.replace("/dashboard");
-    } else {
       setIsLoading(false);
+    } else {
       setErrorAuthMessage(respAuthUser.error.message);
+      setIsLoading(false);
     }
   };
 
