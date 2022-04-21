@@ -13,6 +13,11 @@
   color: #57548b;
   padding-left: 40px;
 }
+.loading {
+  font-family: Audiowide;
+  color: #57548b;
+  font-size: 16px;
+}
 
 .screen {
   background: whitesmoke;

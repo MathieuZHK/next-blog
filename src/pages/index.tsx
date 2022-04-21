@@ -11,6 +11,7 @@ export default function Login() {
   const authContext = useContext(AuthContext);
   const router = useRouter();
   const [errorAuthMessage, setErrorAuthMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   supabase.auth.onAuthStateChange(async (event, session) => {
     const userAuth = authenticationRepository.getAuthUser();
@@ -25,6 +26,7 @@ export default function Login() {
   });
 
   const onLogin = async (email: string, password: string) => {
+    setIsLoading(true);
     var respAuthUser = await authenticationRepository.signIn({
       email,
       password,
@@ -46,8 +48,10 @@ export default function Login() {
           authContext.saveToken(token);
         }
       }
-      router.replace("/posts");
+      setIsLoading(false);
+      router.replace("/dashboard");
     } else {
+      setIsLoading(false);
       setErrorAuthMessage(respAuthUser.error.message);
     }
   };
@@ -58,7 +62,7 @@ export default function Login() {
         <div className={styles.errorScreen}>
           {errorAuthMessage && <p>{errorAuthMessage}</p>}
         </div>
-        <LoginForm onLogin={onLogin} />
+        <LoginForm onLogin={onLogin} isLoading={isLoading} />
       </div>
     </>
   );

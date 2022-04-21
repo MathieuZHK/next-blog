@@ -4,6 +4,7 @@ import styles from "../login-form/loginform.module.css";
 
 interface LoginFormProps {
   onLogin: (email: string, password: string) => void;
+  isLoading: boolean;
 }
 
 export default function LoginForm(props: LoginFormProps) {
@@ -25,8 +26,10 @@ export default function LoginForm(props: LoginFormProps) {
         <div className={styles.screenContent}>
           <form onSubmit={handleSubmit} className={styles.login}>
             <span className={styles.logo}>WoE</span>
-
             <div className={styles.loginField}>
+              <div className={styles.loading}>
+                {props.isLoading && <label>CHARGEMENT...</label>}
+              </div>
               <input
                 placeholder="email"
                 value={email}
