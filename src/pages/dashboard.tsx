@@ -11,6 +11,8 @@ import { authenticationRepository } from "../core/service/authenticationService/
 import { User } from "../core/model/User";
 import { userRepository } from "../core/service/userService/userRepository";
 import { supabase } from "../core/service/supabaseService/supabaseClient";
+import PostForm from "../compoments/post-form/PostForm";
+import styles from "../../styles/dashboard.module.css";
 
 interface HomeProps {
   posts: PostDto[];
@@ -47,6 +49,24 @@ export default function Home(props: HomeProps) {
     }
   };
 
+  const onPostSubmit = async (
+    summary: string,
+    user_id: string,
+    id?: string
+  ) => {
+    const { data, error } = await postRepository.createPost({
+      summary,
+      user_id,
+    });
+    setErrorMessage(error ? error.message : "");
+    if (!error) {
+      const { data, error } = await postRepository.getAllPost();
+      if (data) {
+        setPosts(data);
+      }
+    }
+  };
+
   const onReply = async (reply: string, postId: string) => {
     const { data, error } = await replyRepository.createReply({
       reply: reply,
@@ -62,16 +82,46 @@ export default function Home(props: HomeProps) {
     }
   };
 
+  const deletePost = async (postId: string) => {
+    const { data, error } = await postRepository.deletePost(postId);
+    setErrorMessage(error ? error.message : "");
+    if (!error) {
+      setPosts((prev) => {
+        return prev.filter((item) => item.id != postId);
+      });
+    }
+    const responseData = await postRepository.getPostByUserWithNickname(
+      authContext.currentUser?.id ? authContext.currentUser?.id : ""
+    );
+    const dataAllPostByUser = responseData.body;
+    if (dataAllPostByUser) {
+      setPosts(dataAllPostByUser);
+    } else {
+      setPosts([]);
+    }
+  };
+
   return (
-    <div>
-      <NavBar />
-      {errorMessage && <p>{errorMessage}</p>}
-      <PostList
-        posts={posts}
-        showReply={authContext.isAuthenticated}
-        onReply={onReply}
-      />
-    </div>
+    <>
+      <div className={styles.navbarcontainer}>
+        <NavBar />
+        <div className={styles.errorcontainer}>
+          {errorMessage && <p>{errorMessage}</p>}
+        </div>
+        <div className={styles.container}>
+          <div className={styles.postformcontainer}>
+            <PostForm onPostSubmit={onPostSubmit} />
+          </div>
+          <div className={styles.postlistallcontainer}>
+            <PostList
+              posts={posts}
+              showReply={authContext.isAuthenticated}
+              onReply={onReply}
+            />
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 

@@ -1,27 +1,25 @@
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .card {
   background: whitesmoke;
-  border-color: #6a679e;
-  border: 3px;
+  border: 3px solid;
+  border-color: #b0acf7;
   border-radius: 20px;
-  display: flex;
-  width: 25%;
+  max-width: 75%;
+  width: 75%;
   flex-direction: column;
-  flex-wrap: wrap;
-  margin-top: 30px;
   padding: 16px 20px;
   font-size: 14px;
+  overflow-wrap: break-word;
+  margin-top: 1%;
 }
 
 .cardPost {
   background: #e7e6f1;
   border-radius: 10px;
   padding: 16px 20px;
+  overflow-wrap: break-word;
 }
 
 .buttonUpdate {

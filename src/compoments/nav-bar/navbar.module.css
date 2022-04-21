@@ -7,7 +7,7 @@
   background-color: #57548b;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .ul {
@@ -46,7 +46,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   background-color: #57548b;
 }
 
@@ -54,7 +54,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  flex: 0 1 728px;
+  flex: 0 1 60%;
   min-width: 0px;
 }
 
@@ -69,9 +69,20 @@
   color: white;
 }
 
+.aNickname {
+  color: white;
+  margin: 0 0 0 10px;
+}
+
 .aUser {
   color: white;
   margin: 0 0 0 10px;
+}
+
+.aUser:hover {
+  border: 1px;
+  border-color: #dcdcdc;
+  color: black;
 }
 
 .myButton1 {
@@ -93,6 +104,7 @@
 .myButton:hover {
   border: 1px;
   border-color: #dcdcdc;
+  color: black;
 }
 .myButton:active {
   position: relative;

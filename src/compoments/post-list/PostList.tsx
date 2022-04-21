@@ -18,18 +18,20 @@ export default function PostList(props: PostListProps) {
   const { posts, showDelete, onDelete, showUpdate, showReply, onReply } = props;
 
   return (
-    <ul className={styles.ulNone}>
-      {posts.map((post) => (
-        <PostItem
-          key={post.id}
-          post={post}
-          showDelete={showDelete}
-          showUpdate={showUpdate}
-          showReply={showReply}
-          onDelete={onDelete}
-          onReply={onReply}
-        />
-      ))}
-    </ul>
+    <div className={styles.container}>
+      <ul className={styles.ulNone}>
+        {posts.map((post) => (
+          <PostItem
+            key={post.id}
+            post={post}
+            showDelete={showDelete}
+            showUpdate={showUpdate}
+            showReply={showReply}
+            onDelete={onDelete}
+            onReply={onReply}
+          />
+        ))}
+      </ul>
+    </div>
   );
 }

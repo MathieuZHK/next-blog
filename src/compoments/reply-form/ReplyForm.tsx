@@ -24,19 +24,21 @@ export default function ReplyForm(props: PostItemProps) {
   };
 
   return (
-    <>
+    <div className={styles.container}>
       {replyFormShow ? (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            onChange={(e) => setReply(e.target.value ? e.target.value : "")}
-            placeholder="Repondre..."
-            className={styles.replyInput}
-          ></input>
-          <button className={styles.replySubmit} type="submit">
-            Envoyer
-          </button>
-        </form>
+        <div className={styles.formcontainer}>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              onChange={(e) => setReply(e.target.value ? e.target.value : "")}
+              placeholder="Repondre..."
+              className={styles.replyInput}
+            ></input>
+            <button className={styles.replySubmit} type="submit">
+              Envoyer
+            </button>
+          </form>
+        </div>
       ) : (
         <button
           type="button"
@@ -46,6 +48,6 @@ export default function ReplyForm(props: PostItemProps) {
           Repondre
         </button>
       )}
-    </>
+    </div>
   );
 }

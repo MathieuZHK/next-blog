@@ -1,3 +1,7 @@
 .ulNone {
   list-style-type: none;
 }
+
+.container {
+  width: 100%;
+}

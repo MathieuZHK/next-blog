@@ -11,7 +11,7 @@ export default function ReplyList(props: ReplyListProps) {
   const { replys } = props;
 
   return (
-    <>
+    <div className={styles.card}>
       {replys && (
         <ul className={styles.ulNone}>
           {replys.map((reply) => (
@@ -19,6 +19,6 @@ export default function ReplyList(props: ReplyListProps) {
           ))}
         </ul>
       )}
-    </>
+    </div>
   );
 }

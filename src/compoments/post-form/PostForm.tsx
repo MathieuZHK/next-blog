@@ -25,24 +25,20 @@ export default function PostForm(props: PostFormProps) {
   return (
     <>
       <div className={styles.card}>
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "24px",
-            maxWidth: "408px",
-          }}
-        >
-          <input
-            placeholder="Summary"
-            value={summary}
-            onChange={(e) => setSummary(e.target.value)}
-            className={styles.titleInput}
-          />
-          <button type="submit" className={styles.buttonSubmit}>
-            Enregistrer
-          </button>
+        <form onSubmit={handleSubmit} className={styles.formStyle}>
+          <div className={styles.inputcontainer}>
+            <input
+              placeholder="Summary"
+              value={summary}
+              onChange={(e) => setSummary(e.target.value)}
+              className={styles.titleInput}
+            />
+          </div>
+          <div>
+            <button type="submit" className={styles.buttonSubmit}>
+              Enregistrer
+            </button>
+          </div>
         </form>
       </div>
     </>

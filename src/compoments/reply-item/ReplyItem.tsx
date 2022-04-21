@@ -10,13 +10,17 @@ export default function ReplyItem(props: ReplyItemProps) {
   const { reply } = props;
 
   return (
-    <li key={reply.id}>
-      <div className={styles.card}>
-        <h5>{reply.user.nickname}</h5>
-        <div className={styles.cardReply}>
-          <h4>{reply.reply}</h4>
+    <div className={styles.container}>
+      <li key={reply.id}>
+        <div className={styles.card}>
+          <div>
+            <label>{reply.user.nickname}</label>
+          </div>
+          <div className={styles.cardReply}>
+            <label>{reply.reply}</label>
+          </div>
         </div>
-      </div>
-    </li>
+      </li>
+    </div>
   );
 }

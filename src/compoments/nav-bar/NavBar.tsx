@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { authenticationRepository } from "../../core/service/authenticationService/authenticationRepository";
 import { userRepository } from "../../core/service/userService/userRepository";
 import { User } from "../../core/model/User";
+import PostForm from "../post-form/PostForm";
 
 export default function NavBar() {
   const authContext = useContext(AuthContext);
@@ -44,7 +45,7 @@ export default function NavBar() {
   return (
     <>
       <div id="container" className={styles.container}>
-        <div className={styles.aUser}>
+        <div className={styles.aNickname}>
           <h3>
             Bonjour{" "}
             {authContext.currentUser?.nickname
@@ -65,7 +66,6 @@ export default function NavBar() {
           </div>
         )}
         <div id="center" className={styles.divCenter}></div>
-
         {authContext.isAuthenticated && (
           <div id="end">
             <button className={styles.myButton} onClick={onLogOut}>

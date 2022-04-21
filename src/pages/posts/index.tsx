@@ -5,7 +5,7 @@ import NavBar from "../../compoments/nav-bar/NavBar";
 import PostList from "../../compoments/post-list/PostList";
 import { AuthContext } from "../../core/context/AuthContext";
 import { PostDto } from "../../core/dto/PostDto";
-import styles from "../../compoments/post-form/postform.module.css";
+import styles from "../../../styles/posts/index.module.css";
 import { authenticationRepository } from "../../core/service/authenticationService/authenticationRepository";
 import { User } from "../../core/model/User";
 import { userRepository } from "../../core/service/userService/userRepository";
@@ -87,15 +87,7 @@ export default function Index(props: PostsProps) {
   return (
     <>
       <NavBar />
-
-      <button
-        type="button"
-        onClick={clickCreate}
-        className={styles.buttonSubmit}
-      >
-        Créer un post
-      </button>
-      <div>
+      <div className={styles.container}>
         <PostList
           posts={posts}
           showDelete

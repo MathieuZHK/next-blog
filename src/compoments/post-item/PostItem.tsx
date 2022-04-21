@@ -17,14 +17,14 @@ interface PostItemProps {
 export default function PostItem(props: PostItemProps) {
   const { post, showDelete, onDelete, showUpdate, showReply, onReply } = props;
   return (
-    <div>
+    <div className={styles.container}>
       <li key={post.id}>
         <div className={styles.card}>
           <div>
-            <h4>{post.user.nickname}</h4>
+            <label>{post.user.nickname}</label>
           </div>
           <div className={styles.cardPost}>
-            <h3>{post.summary}</h3>
+            <label className={styles.postSummary}>{post.summary}</label>
           </div>
         </div>
         <div>

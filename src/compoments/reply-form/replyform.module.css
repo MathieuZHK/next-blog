@@ -1,3 +1,11 @@
+.container {
+  display: flex;
+}
+
+.formcontainer {
+  flex: 1;
+}
+
 .loginField {
   padding: 20px 0px;
   position: relative;
@@ -12,7 +20,7 @@
   margin-right: 10px;
   font-weight: 800;
   font-size: small;
-  width: 25%;
+  width: 75%;
   height: 30px;
   transition: 0.2s;
   border-radius: 10px;
@@ -35,7 +43,7 @@
   font-weight: 700;
   display: flexbox;
   align-items: center;
-  width: 25%;
+  width: 75%;
   color: #57548b;
   cursor: pointer;
   transition: 0.2s;
@@ -59,7 +67,7 @@
   font-weight: 700;
   display: flexbox;
   align-items: center;
-  width: 5%;
+  width: 15%;
   color: #57548b;
   cursor: pointer;
   transition: 0.2s;
