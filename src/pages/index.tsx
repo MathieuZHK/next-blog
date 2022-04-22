@@ -48,6 +48,7 @@ export default function Login() {
           authContext.saveToken(token);
         }
       }
+
       router.replace("/dashboard");
       setIsLoading(false);
     } else {
